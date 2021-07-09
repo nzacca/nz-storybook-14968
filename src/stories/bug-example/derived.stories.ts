@@ -18,7 +18,9 @@ export default {
 
 export const TestDerived = (args: any) => ({
   props: {
-    foo: "Hello World",
+    parentInput: "Hello World",
+    localInput: "Bar",
+    parentInputObject: { newValue: "bar" },
     ...args
   }
 });
