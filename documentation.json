@@ -126,7 +126,7 @@
         },
         {
             "name": "DerivedComponent",
-            "id": "component-DerivedComponent-1859407345afbc8f38cd828182de3f09",
+            "id": "component-DerivedComponent-28574d791d2b50886eae2206a8949f9a",
             "file": "src/stories/bug-example/derived.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -136,15 +136,21 @@
             "selector": "app-derived",
             "styleUrls": [],
             "styles": [],
-            "template": "<button (click)=\"callLocalOutput()\">This button should show in action log as expected</button>\n<br/><br/>\n<button (click)=\"callParentOutput()\">This button should show in action log but causes error in the console</button>\n",
+            "template": "<div>Show Parent Input Value: {{parentInput}}</div>\n<div>Show Local Input Value: {{localInput}}</div>\n<div>Show Parent Input Object Value: {{parentInputObject?.newValue}}</div>\n<button (click)=\"callLocalOutput()\">This button should show in action log as expected</button>\n<br/><br/>\n<button (click)=\"callParentOutput()\">This button should show in action log but causes error in the console</button>\n",
             "templateUrl": [],
             "viewProviders": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "localInput",
+                    "defaultValue": "\"foo\"",
+                    "line": 16
+                }
+            ],
             "outputsClass": [
                 {
                     "name": "localOutput",
                     "defaultValue": "new EventEmitter<string>()",
-                    "line": 13,
+                    "line": 17,
                     "type": "EventEmitter"
                 }
             ],
@@ -156,7 +162,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 19
+                    "line": 23
                 },
                 {
                     "name": "callParentOutput",
@@ -164,7 +170,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 15
+                    "line": 19
                 }
             ],
             "hostBindings": [],
@@ -172,7 +178,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Output } from \"@angular/core\";\r\nimport { ParentComponent } from \"./parent.component\";\r\n\r\n@Component({\r\n  selector: \"app-derived\",\r\n  template: `\r\n    <button (click)=\"callLocalOutput()\">This button should show in action log as expected</button>\r\n    <br/><br/>\r\n    <button (click)=\"callParentOutput()\">This button should show in action log but causes error in the console</button>\r\n    `,\r\n})\r\nexport class DerivedComponent extends ParentComponent {\r\n  @Output() readonly localOutput = new EventEmitter<string>();\r\n\r\n  callParentOutput(): void {\r\n    this.parentOutput.emit(this.foo);\r\n  }\r\n  \r\n  callLocalOutput(): void {\r\n    this.localOutput.emit(this.foo);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { ParentComponent } from \"./parent.component\";\r\n\r\n@Component({\r\n  selector: \"app-derived\",\r\n  template: `\r\n    <div>Show Parent Input Value: {{parentInput}}</div>\r\n    <div>Show Local Input Value: {{localInput}}</div>\r\n    <div>Show Parent Input Object Value: {{parentInputObject?.newValue}}</div>\r\n    <button (click)=\"callLocalOutput()\">This button should show in action log as expected</button>\r\n    <br/><br/>\r\n    <button (click)=\"callParentOutput()\">This button should show in action log but causes error in the console</button>\r\n    `,\r\n})\r\nexport class DerivedComponent extends ParentComponent {\r\n  @Input() localInput = \"foo\";\r\n  @Output() readonly localOutput = new EventEmitter<string>();\r\n\r\n  callParentOutput(): void {\r\n    this.parentOutput.emit(this.parentInput);\r\n  }\r\n  \r\n  callLocalOutput(): void {\r\n    this.localOutput.emit(this.parentInput);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -418,17 +424,17 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.ts",
+                "file": "src/environments/environment.prod.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: false\n}"
+                "defaultValue": "{\n  production: true\n}"
             },
             {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/environments/environment.prod.ts",
+                "file": "src/environments/environment.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: true\n}"
+                "defaultValue": "{\n  production: false\n}"
             },
             {
                 "name": "Large",
@@ -442,7 +448,7 @@
                 "name": "LoggedIn",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Header.stories.ts",
+                "file": "src/stories/Page.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -450,14 +456,6 @@
                 "name": "LoggedIn",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Page.stories.ts",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "LoggedOut",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/stories/Header.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
@@ -467,6 +465,14 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/stories/Page.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "LoggedOut",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/Header.stories.ts",
                 "type": "",
                 "defaultValue": "Template.bind({})"
             },
@@ -506,17 +512,17 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Header.stories.ts",
-                "type": "Story<Header>",
-                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+                "file": "src/stories/Page.stories.ts",
+                "type": "Story<Page>",
+                "defaultValue": "(args: Page) => ({\n  props: args,\n})"
             },
             {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Page.stories.ts",
-                "type": "Story<Page>",
-                "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+                "file": "src/stories/Header.stories.ts",
+                "type": "Story<Header>",
+                "defaultValue": "(args: Header) => ({\n  props: args,\n})"
             },
             {
                 "name": "TestDerived",
@@ -524,23 +530,13 @@
                 "subtype": "variable",
                 "file": "src/stories/bug-example/derived.stories.ts",
                 "type": "",
-                "defaultValue": "(args: any) => ({\r\n  props: {\r\n    foo: \"Hello World\",\r\n    ...args\r\n  }\r\n})"
+                "defaultValue": "(args: any) => ({\r\n  props: {\r\n    parentInput: \"Hello World\",\r\n    localInput: \"Bar\",\r\n    parentInputObject: { newValue: \"bar\" },\r\n    ...args\r\n  }\r\n})"
             }
         ],
         "functions": [],
         "typealiases": [],
         "enumerations": [],
         "groupedVariables": {
-            "src/environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/environments/environment.ts",
-                    "type": "object",
-                    "defaultValue": "{\n  production: false\n}"
-                }
-            ],
             "src/environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -549,6 +545,16 @@
                     "file": "src/environments/environment.prod.ts",
                     "type": "object",
                     "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false\n}"
                 }
             ],
             "src/stories/Button.stories.ts": [
@@ -593,32 +599,6 @@
                     "defaultValue": "(args: Button) => ({\n  props: args,\n})"
                 }
             ],
-            "src/stories/Header.stories.ts": [
-                {
-                    "name": "LoggedIn",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Header.stories.ts",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "LoggedOut",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Header.stories.ts",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/stories/Header.stories.ts",
-                    "type": "Story<Header>",
-                    "defaultValue": "(args: Header) => ({\n  props: args,\n})"
-                }
-            ],
             "src/stories/Page.stories.ts": [
                 {
                     "name": "LoggedIn",
@@ -645,6 +625,32 @@
                     "defaultValue": "(args: Page) => ({\n  props: args,\n})"
                 }
             ],
+            "src/stories/Header.stories.ts": [
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedOut",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/Header.stories.ts",
+                    "type": "Story<Header>",
+                    "defaultValue": "(args: Header) => ({\n  props: args,\n})"
+                }
+            ],
             "src/stories/bug-example/derived.stories.ts": [
                 {
                     "name": "TestDerived",
@@ -652,7 +658,7 @@
                     "subtype": "variable",
                     "file": "src/stories/bug-example/derived.stories.ts",
                     "type": "",
-                    "defaultValue": "(args: any) => ({\r\n  props: {\r\n    foo: \"Hello World\",\r\n    ...args\r\n  }\r\n})"
+                    "defaultValue": "(args: any) => ({\r\n  props: {\r\n    parentInput: \"Hello World\",\r\n    localInput: \"Bar\",\r\n    parentInputObject: { newValue: \"bar\" },\r\n    ...args\r\n  }\r\n})"
                 }
             ]
         },
@@ -823,7 +829,7 @@
                 "linktype": "component",
                 "name": "DerivedComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
